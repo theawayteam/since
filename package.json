@@ -8,11 +8,13 @@
   },
   "devDependencies": {
     "@types/aws-lambda": "0.0.22",
+    "@types/moment": "^2.13.0",
     "@types/node": "^8.0.57",
     "@types/winston": "^2.3.8",
     "aws-sdk": "^2.202.0",
     "class-transformer": "^0.1.9",
     "logdna-winston": "^1.0.0",
+    "moment": "^2.21.0",
     "reflect-metadata": "^0.1.12",
     "serverless-slack": "^1.0.26",
     "serverless-webpack": "^4.0.0",
