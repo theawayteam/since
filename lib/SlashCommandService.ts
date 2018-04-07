@@ -29,15 +29,16 @@ export default class SlashCommandService {
             return i2.timestamp - i1.timestamp;
           }).map((item) => {
             const timeSince = new Date().getTime() - item.timestamp;
-            return `${item.name} - ${moment.duration(timeSince, 'millisecond').humanize()} ago`;
+            return `${item.name} - ${moment.duration(timeSince, 'millisecond').humanize()} ago by ${item.user}`;
           }).join('\n');
           return bot.replyPrivate(message);
         case 'reset':
           const name = parts.slice(1).join(' ');
           let resetItem = await this.itemService.get(name, msg.team_id);
           if (!resetItem) {
-            resetItem = new Item(msg.team_id, name, new Date().getTime());
+            resetItem = new Item(msg.team_id, name, msg.user_name, new Date().getTime());
           } else {
+            resetItem.user = msg.user_name;
             resetItem.timestamp = new Date().getTime();
           }
           this.itemService.save(resetItem);
