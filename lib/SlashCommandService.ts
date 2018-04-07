@@ -10,8 +10,8 @@ export default class SlashCommandService {
       text: [
         'List current events',
         '`/since list`',
-        'Reset the time on an event',
-        '`/since reset <event name>`'
+        'Create an event',
+        '`/since create <event name>`'
       ].join('\n')
     }],
     text: 'Since Help'
@@ -32,17 +32,11 @@ export default class SlashCommandService {
             return `${item.name} - ${moment.duration(timeSince, 'millisecond').humanize()} ago by ${item.user}`;
           }).join('\n');
           return bot.replyPrivate(message);
-        case 'reset':
+        case 'create':
           const name = parts.slice(1).join(' ');
-          let resetItem = await this.itemService.get(name, msg.team_id);
-          if (!resetItem) {
-            resetItem = new Item(msg.team_id, name, msg.user_name, new Date().getTime());
-          } else {
-            resetItem.user = msg.user_name;
-            resetItem.timestamp = new Date().getTime();
-          }
-          this.itemService.save(resetItem);
-          return bot.replyPrivate(`Event ${name} saved :heavy_check_mark:`);
+          const item = new Item(msg.team_id, name, msg.user_name, new Date().getTime());
+          this.itemService.save(item);
+          return bot.replyPrivate(`:heavy_check_mark: Event ${name} saved`);
         default:
           return bot.replyPrivate(SlashCommandService.HELP_TEXT_OBJECT);
       }
