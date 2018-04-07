@@ -30,9 +30,5 @@ const slashCommandService = new SlashCommandService();
 
 // Reaction Added event handler
 slack.on('slash_command', async (msg, bot) => {
-  try {
     await slashCommandService.process(msg, bot);
-  } catch (e) {
-    winston.error('Error processing a slash command', e);
-  }
 });
