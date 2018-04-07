@@ -25,30 +25,7 @@ export default class SlashCommandService {
       switch (parts[0]) {
         case 'list':
           const items = await this.itemService.list(msg.team_id);
-          const message = {
-            attachments: items.sort((i1, i2) => {
-              return i2.timestamp - i1.timestamp;
-            }).map((i) => {
-              const timeSince = new Date().getTime() - i.timestamp;
-              return {
-                actions: [{
-                  name: 'action',
-                  text: 'Reset',
-                  type: 'button',
-                  value: 'reset'
-                }, {
-                  name: 'action',
-                  style: 'danger',
-                  text: 'Delete',
-                  type: 'button',
-                  value: 'delete'
-                }],
-                callback_id: i.id,
-                text: `${i.name} - ${moment.duration(timeSince, 'millisecond').humanize()} ago by ${i.user}`
-              };
-            }),
-            text: 'Events:'
-          };
+          const message = this.message(items);
           return bot.replyPrivate(message);
         case 'create':
           const name = parts.slice(1).join(' ');
@@ -71,14 +48,52 @@ export default class SlashCommandService {
       const item = await this.itemService.get(itemId, team);
       switch (action.value) {
         case 'reset':
-          winston.info(`Resetting item: ${JSON.stringify(item)}`);
-          return;
+          item.timestamp = new Date().getTime();
+          item.user = msg.user.name;
+          await this.itemService.save(item);
+          break;
         case 'delete':
-          winston.info(`Deleting item: ${JSON.stringify(item)}`);
-          return;
+          await this.itemService.delete(item.id, item.teamId);
+          break;
       }
+      const items = await this.itemService.list(team);
+      const message = this.message(items);
+      message.replace_original = true;
+      await bot.replyPrivate(message);
     } catch (e) {
       winston.error('Error processing a interactive action', e);
     }
+  }
+
+  private message(items: Item[]): any {
+    return {
+      attachments: items.sort((i1, i2) => {
+        return i2.timestamp - i1.timestamp;
+      }).map((item) => {
+        const timeSince = new Date().getTime() - item.timestamp;
+        return {
+          actions: [{
+            name: 'action',
+            text: 'Reset',
+            type: 'button',
+            value: 'reset'
+          }, {
+            confirm: {
+              dismiss_text: 'No',
+              ok_text: 'Yes',
+              title: 'Are you sure?'
+            },
+            name: 'action',
+            style: 'danger',
+            text: 'Delete',
+            type: 'button',
+            value: 'delete'
+          }],
+          callback_id: item.id,
+          text: `${item.name} - ${moment.duration(timeSince, 'millisecond').humanize()} ago by ${item.user}`
+        };
+      }),
+        text: 'Events:'
+    };
   }
 }
