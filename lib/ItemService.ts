@@ -13,10 +13,10 @@ export default class ItemService {
     }).promise();
   }
 
-  public async get(name: string, teamId: string): Promise<Item> {
+  public async get(id: string, teamId: string): Promise<Item> {
     const response = await this.client.get({
       Key: {
-        name,
+        id,
         teamId
       },
       TableName: process.env.ITEM_TABLE_NAME

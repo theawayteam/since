@@ -108,7 +108,7 @@ resources:
       Properties:
         AttributeDefinitions:
           -
-            AttributeName: name
+            AttributeName: id
             AttributeType: S
           -
             AttributeName: teamId
@@ -118,7 +118,7 @@ resources:
             AttributeName: teamId
             KeyType: HASH
           -
-            AttributeName: name
+            AttributeName: id
             KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
