@@ -13,29 +13,29 @@ export default class SlashCommandService {
   private itemService = new ItemService();
 
   public async process(msg, bot) {
-    if (!msg.text.trim()) {
-      return bot.replyPrivate(SlashCommandService.HELP_TEXT);
-    }
     const parts = msg.text.trim().split(' ');
-    const command = parts[0];
-    if (command === 'list') {
-      const items = await this.itemService.list(msg.team_id);
-      const message = 'Events:\n' + items.sort((i1, i2) => {
-        return i2.timestamp - i1.timestamp;
-      }).map((item) => {
-        return `${item.name} - ${moment.duration(new Date().getTime() - item.timestamp, 'millisecond').humanize()} ago`;
-      }).join('\n');
-      bot.replyPrivate(message);
-    } else if (command === 'reset') {
-      const name = parts.slice(1).join(' ');
-      let item = await this.itemService.get(name, msg.team_id);
-      if (!item) {
-        item = new Item(msg.team_id, name, new Date().getTime());
-      } else {
-        item.timestamp = new Date().getTime();
-      }
-      this.itemService.save(item);
-      bot.replyPrivate(`Event ${name} saved`);
+    switch (parts[0]) {
+      case 'list':
+        const items = await this.itemService.list(msg.team_id);
+        const message = 'Events:\n' + items.sort((i1, i2) => {
+          return i2.timestamp - i1.timestamp;
+        }).map((item) => {
+          const timeSince = new Date().getTime() - item.timestamp;
+          return `${item.name} - ${moment.duration(timeSince, 'millisecond').humanize()} ago`;
+        }).join('\n');
+        return bot.replyPrivate(message);
+      case 'reset':
+        const name = parts.slice(1).join(' ');
+        let resetItem = await this.itemService.get(name, msg.team_id);
+        if (!resetItem) {
+          resetItem = new Item(msg.team_id, name, new Date().getTime());
+        } else {
+          resetItem.timestamp = new Date().getTime();
+        }
+        this.itemService.save(resetItem);
+        return bot.replyPrivate(`Event ${name} saved`);
+      default:
+        return bot.replyPrivate(SlashCommandService.HELP_TEXT);
     }
   }
 }
