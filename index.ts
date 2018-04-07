@@ -28,7 +28,10 @@ exports.handler = slack.handler.bind(slack);
 
 const slashCommandService = new SlashCommandService();
 
-// Reaction Added event handler
 slack.on('slash_command', async (msg, bot) => {
-    await slashCommandService.process(msg, bot);
+  await slashCommandService.process(msg, bot);
+});
+
+slack.on('interactive_message', async (msg, bot) => {
+  await slashCommandService.processAction(msg, bot);
 });

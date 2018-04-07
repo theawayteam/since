@@ -22,3 +22,4 @@ serverless deploy -s dev
 - Deploy the Serverless stack
 - Use the generated API Gateway URL to populate the Slash Command form
 - Install the app in a testing account using the Manage Distribution Sharable URL (needed to trigger team persistence in DynamoDB)
+- Enable Interactive Components with the same serverless URL

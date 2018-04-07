@@ -25,12 +25,30 @@ export default class SlashCommandService {
       switch (parts[0]) {
         case 'list':
           const items = await this.itemService.list(msg.team_id);
-          const message = 'Events:\n' + items.sort((i1, i2) => {
-            return i2.timestamp - i1.timestamp;
-          }).map((item) => {
-            const timeSince = new Date().getTime() - item.timestamp;
-            return `${item.name} - ${moment.duration(timeSince, 'millisecond').humanize()} ago by ${item.user}`;
-          }).join('\n');
+          const message = {
+            attachments: items.sort((i1, i2) => {
+              return i2.timestamp - i1.timestamp;
+            }).map((i) => {
+              const timeSince = new Date().getTime() - i.timestamp;
+              return {
+                actions: [{
+                  name: 'action',
+                  text: 'Reset',
+                  type: 'button',
+                  value: 'reset'
+                }, {
+                  name: 'action',
+                  style: 'danger',
+                  text: 'Delete',
+                  type: 'button',
+                  value: 'delete'
+                }],
+                callback_id: i.id,
+                text: `${i.name} - ${moment.duration(timeSince, 'millisecond').humanize()} ago by ${i.user}`
+              };
+            }),
+            text: 'Events:'
+          };
           return bot.replyPrivate(message);
         case 'create':
           const name = parts.slice(1).join(' ');
@@ -41,7 +59,26 @@ export default class SlashCommandService {
           return bot.replyPrivate(SlashCommandService.HELP_TEXT_OBJECT);
       }
     } catch (e) {
-      winston.error('Error processing a slash command', e);
+      winston.error('Error processing the slash command', e);
+    }
+  }
+
+  public async processAction(msg, bot) {
+    try {
+      const team = msg.team.id;
+      const action = msg.actions[0];
+      const itemId = msg.callback_id;
+      const item = await this.itemService.get(itemId, team);
+      switch (action.value) {
+        case 'reset':
+          winston.info(`Resetting item: ${JSON.stringify(item)}`);
+          return;
+        case 'delete':
+          winston.info(`Deleting item: ${JSON.stringify(item)}`);
+          return;
+      }
+    } catch (e) {
+      winston.error('Error processing a interactive action', e);
     }
   }
 }
