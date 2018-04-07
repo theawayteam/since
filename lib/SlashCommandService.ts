@@ -4,11 +4,17 @@ import ItemService from './ItemService';
 
 export default class SlashCommandService {
 
-  private static HELP_TEXT = [
-    'Since Help',
-    ' - list: List current events',
-    ' - reset <event name>: Reset the time on an event'
-  ].join('\n');
+  private static HELP_TEXT_OBJECT = {
+    attachments: [{
+      text: [
+        'List current events',
+        '`/since list`',
+        'Reset the time on an event',
+        '`/since reset <event name>`'
+      ].join('\n')
+    }],
+    text: 'Since Help'
+  };
 
   private itemService = new ItemService();
 
@@ -35,7 +41,7 @@ export default class SlashCommandService {
         this.itemService.save(resetItem);
         return bot.replyPrivate(`Event ${name} saved`);
       default:
-        return bot.replyPrivate(SlashCommandService.HELP_TEXT);
+        return bot.replyPrivate(SlashCommandService.HELP_TEXT_OBJECT);
     }
   }
 }
