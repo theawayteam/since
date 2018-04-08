@@ -26,6 +26,5 @@
     "webpack": "^3.6.0",
     "winston": "^2.4.0"
   },
-  "author": "TheConnMan",
-  "license": "MIT"
+  "author": "TheConnMan"
 }
