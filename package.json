@@ -17,7 +17,7 @@
     "logdna-winston": "^1.0.0",
     "moment": "^2.21.0",
     "reflect-metadata": "^0.1.12",
-    "serverless-slack": "^1.0.26",
+    "serverless-slack": "theawayteam/serverless-slack#duplicate-interactive-messages",
     "serverless-webpack": "^4.0.0",
     "ts-loader": "^2.3.7",
     "tslint": "^5.8.0",

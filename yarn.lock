@@ -2076,6 +2076,13 @@ serverless-slack@^1.0.26:
     aws-sdk "^2.7.13"
     axios "^0.15.3"
 
+serverless-slack@theawayteam/serverless-slack#duplicate-interactive-messages:
+  version "1.0.26"
+  resolved "https://codeload.github.com/theawayteam/serverless-slack/tar.gz/a5e44260914b8620652f90b25792ce6db5a4a449"
+  dependencies:
+    aws-sdk "^2.7.13"
+    axios "^0.15.3"
+
 serverless-webpack@^4.0.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/serverless-webpack/-/serverless-webpack-4.3.0.tgz#6fd662d9a9e8a0ab1d5f08ce911b21080c4cb9c7"
