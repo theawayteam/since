@@ -4,6 +4,11 @@ import Item from '../model/Item';
 export default class MessageService {
 
   public generateListMessage(items: Item[]): any {
+    if (items.length === 0) {
+      return {
+        text: 'There are no events! Use `/since help` to see how to make one.'
+      };
+    }
     return {
       attachments: items.sort((i1, i2) => {
         return i2.timestamp - i1.timestamp;
