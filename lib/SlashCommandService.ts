@@ -1,7 +1,7 @@
-import * as moment from 'moment';
 import * as winston from 'winston';
 import Item from '../model/Item';
 import ItemService from './ItemService';
+import MessageService from './MessageService';
 
 export default class SlashCommandService {
 
@@ -18,6 +18,7 @@ export default class SlashCommandService {
   };
 
   private itemService = new ItemService();
+  private messageService = new MessageService();
 
   public async process(msg, bot) {
     try {
@@ -25,7 +26,7 @@ export default class SlashCommandService {
       switch (parts[0]) {
         case 'list':
           const items = await this.itemService.list(msg.team_id);
-          const message = this.message(items);
+          const message = this.messageService.generateListMessage(items);
           return bot.replyPrivate(message);
         case 'create':
           const name = parts.slice(1).join(' ');
@@ -57,43 +58,11 @@ export default class SlashCommandService {
           break;
       }
       const items = await this.itemService.list(team);
-      const message = this.message(items);
+      const message = this.messageService.generateListMessage(items);
       message.replace_original = true;
       await bot.replyPrivate(message);
     } catch (e) {
       winston.error('Error processing a interactive action', e);
     }
-  }
-
-  private message(items: Item[]): any {
-    return {
-      attachments: items.sort((i1, i2) => {
-        return i2.timestamp - i1.timestamp;
-      }).map((item) => {
-        const timeSince = new Date().getTime() - item.timestamp;
-        return {
-          actions: [{
-            name: 'action',
-            text: 'Reset',
-            type: 'button',
-            value: 'reset'
-          }, {
-            confirm: {
-              dismiss_text: 'No',
-              ok_text: 'Yes',
-              title: 'Are you sure?'
-            },
-            name: 'action',
-            style: 'danger',
-            text: 'Delete',
-            type: 'button',
-            value: 'delete'
-          }],
-          callback_id: item.id,
-          text: `${item.name} - ${moment.duration(timeSince, 'millisecond').humanize()} ago by ${item.user}`
-        };
-      }),
-        text: 'Events:'
-    };
   }
 }
