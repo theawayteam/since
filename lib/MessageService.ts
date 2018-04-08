@@ -39,8 +39,10 @@ export default class MessageService {
         type: 'button',
         value: 'delete'
       }],
+      author_name: item.user,
       callback_id: item.id,
-      text: `${item.name} - ${moment.duration(timeSince, 'millisecond').humanize()} ago by ${item.user}`
+      title: item.name,
+      ts: Math.floor(item.timestamp / 1000)
     };
   }
 }
