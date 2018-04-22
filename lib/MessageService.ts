@@ -19,6 +19,12 @@ export default class MessageService {
     };
   }
 
+  public generateCreateMessage(item: Item): any {
+    return {
+      text: `<@${item.user}> created ${item.name}!`
+    };
+  }
+
   public generateResetMessage(item: Item, lastTime: number): any {
     const humanTime = moment.duration(item.timestamp - lastTime, 'millisecond').humanize();
     return {

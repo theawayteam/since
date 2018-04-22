@@ -34,6 +34,7 @@ export default class SlashCommandService {
           const name = parts.slice(1).join(' ');
           const item = new Item(msg.team_id, name, msg.user_name, new Date().getTime());
           this.itemService.save(item);
+          await bot.say(this.messageService.generateCreateMessage(item));
           return bot.replyPrivate(`:heavy_check_mark: Event ${name} saved`);
         default:
           winston.debug(`User ${msg.user_name} in team ${msg.team_id} ran an other command`);
