@@ -51,7 +51,7 @@ export default class SlashCommandService {
       switch (action.value) {
         case 'reset':
           item.timestamp = new Date().getTime();
-          item.user = msg.user.name;
+          item.user = msg.user.id;
           await this.itemService.save(item);
           await bot.say(this.messageService.generateResetMessage(item, lastTime));
           break;

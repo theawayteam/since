@@ -22,7 +22,7 @@ export default class MessageService {
   public generateResetMessage(item: Item, lastTime: number): any {
     const humanTime = moment.duration(item.timestamp - lastTime, 'millisecond').humanize();
     return {
-      text: `@${item.user} reset ${item.name}! The last occurrence was ${humanTime} ago by ${item.user}`
+      text: `<@${item.user}> reset ${item.name}! The last occurrence was ${humanTime} ago by <@${item.user}>`
     };
   }
 
@@ -46,7 +46,7 @@ export default class MessageService {
         type: 'button',
         value: 'delete'
       }],
-      author_name: item.user,
+      author_name: `<@${item.user}>`,
       callback_id: item.id,
       title: item.name,
       ts: Math.floor(item.timestamp / 1000)
