@@ -14,7 +14,6 @@
     "@types/winston": "^2.3.8",
     "aws-sdk": "^2.202.0",
     "class-transformer": "^0.1.9",
-    "logdna-winston": "^1.0.0",
     "moment": "^2.21.0",
     "reflect-metadata": "^0.1.12",
     "serverless-slack": "theawayteam/serverless-slack#duplicate-interactive-messages",
