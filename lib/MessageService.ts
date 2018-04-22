@@ -19,6 +19,13 @@ export default class MessageService {
     };
   }
 
+  public generateResetMessage(item: Item, lastTime: number): any {
+    const humanTime = moment.duration(item.timestamp - lastTime, 'millisecond').humanize();
+    return {
+      text: `@${item.user} reset ${item.name}! The last occurrence was ${humanTime} ago by ${item.user}`
+    };
+  }
+
   private generateListItem(item: Item): any {
     const timeSince = new Date().getTime() - item.timestamp;
     return {

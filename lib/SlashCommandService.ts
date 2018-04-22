@@ -47,11 +47,13 @@ export default class SlashCommandService {
       const action = msg.actions[0];
       const itemId = msg.callback_id;
       const item = await this.itemService.get(itemId, team);
+      const lastTime = item.timestamp;
       switch (action.value) {
         case 'reset':
           item.timestamp = new Date().getTime();
           item.user = msg.user.name;
           await this.itemService.save(item);
+          await bot.say(this.messageService.generateResetMessage(item, lastTime));
           break;
         case 'delete':
           await this.itemService.delete(item.id, item.teamId);
