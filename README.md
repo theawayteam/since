@@ -9,7 +9,7 @@ Use the `/since` Slash Command to list and reset events.
 
 ```
 npm install -g serverless
-git clone https://github.com/TheConnMan/since.git
+git clone https://github.com/theawayteam/since.git
 cd since/
 yarn
 serverless deploy -s dev
