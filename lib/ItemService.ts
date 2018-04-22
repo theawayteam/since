@@ -13,15 +13,25 @@ export default class ItemService {
     }).promise();
   }
 
-  public async get(name: string, teamId: string): Promise<Item> {
+  public async get(id: string, teamId: string): Promise<Item> {
     const response = await this.client.get({
       Key: {
-        name,
+        id,
         teamId
       },
       TableName: process.env.ITEM_TABLE_NAME
     }).promise();
     return plainToClass(Item, response.Item);
+  }
+
+  public async delete(id: string, teamId: string): Promise<void> {
+    await this.client.delete({
+      Key: {
+        id,
+        teamId
+      },
+      TableName: process.env.ITEM_TABLE_NAME
+    }).promise();
   }
 
   public async list(teamId: string): Promise<Item[]> {

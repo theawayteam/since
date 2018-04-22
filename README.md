@@ -9,7 +9,7 @@ Use the `/since` Slash Command to list and reset events.
 
 ```
 npm install -g serverless
-git clone https://github.com/TheConnMan/since.git
+git clone https://github.com/theawayteam/since.git
 cd since/
 yarn
 serverless deploy -s dev
@@ -22,3 +22,7 @@ serverless deploy -s dev
 - Deploy the Serverless stack
 - Use the generated API Gateway URL to populate the Slash Command form
 - Install the app in a testing account using the Manage Distribution Sharable URL (needed to trigger team persistence in DynamoDB)
+- Enable Interactive Components with the same serverless URL
+
+### Logging
+Logs are pushed to LogDNA using the CloudWatch LogDNA integration. Logs are streamed from the CloudWatch stream to a LogDNA provided Lambda function and sent asynchronously so logging doesn't slow down core processing. The CloudWatch log filter used is `?debug ?info ?warn ?error`.

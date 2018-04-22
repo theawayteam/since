@@ -1,4 +1,8 @@
+import * as uuid from 'uuid';
+
 export default class Item {
 
-  constructor(public teamId: string, public name: string, public timestamp: number) { }
+  public id = uuid.v4();
+
+  constructor(public teamId: string, public name: string, public user: string, public timestamp: number) { }
 }

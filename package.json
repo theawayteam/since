@@ -1,6 +1,6 @@
 {
   "name": "since",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Slack Slash Command tracking how long it's been since an event",
   "main": "handler.js",
   "scripts": {
@@ -10,20 +10,20 @@
     "@types/aws-lambda": "0.0.22",
     "@types/moment": "^2.13.0",
     "@types/node": "^8.0.57",
+    "@types/uuid": "^3.4.3",
     "@types/winston": "^2.3.8",
     "aws-sdk": "^2.202.0",
     "class-transformer": "^0.1.9",
-    "logdna-winston": "^1.0.0",
     "moment": "^2.21.0",
     "reflect-metadata": "^0.1.12",
-    "serverless-slack": "^1.0.26",
+    "serverless-slack": "theawayteam/serverless-slack#duplicate-interactive-messages",
     "serverless-webpack": "^4.0.0",
     "ts-loader": "^2.3.7",
     "tslint": "^5.8.0",
     "typescript": "^2.5.2",
+    "uuid": "^3.2.1",
     "webpack": "^3.6.0",
     "winston": "^2.4.0"
   },
-  "author": "TheConnMan",
-  "license": "MIT"
+  "author": "TheConnMan"
 }
