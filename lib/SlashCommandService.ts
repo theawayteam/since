@@ -11,11 +11,16 @@ export default class SlashCommandService {
         'List current events',
         '`/since list`',
         'Create an event',
-        '`/since create <event name>`'
+        '`/since create <event name>`',
+        'Send feedback',
+        '`/since feedback`'
       ].join('\n')
     }],
     text: 'Since Help'
   };
+
+  // tslint:disable-next-line max-line-length
+  private static FEEDBACK_TEXT = 'Thank you for sending us feedback! Please send an email to `support@theaway.team` and include your Slack Workspace name.';
 
   private itemService = new ItemService();
   private messageService = new MessageService();
@@ -36,6 +41,9 @@ export default class SlashCommandService {
           this.itemService.save(item);
           await bot.say(this.messageService.generateCreateMessage(item));
           return bot.replyPrivate(`:heavy_check_mark: Event ${name} saved`);
+        case 'feedback':
+          winston.debug(`User ${msg.user_name} in team ${msg.team_id} ran a feedback command`);
+          return bot.replyPrivate(SlashCommandService.FEEDBACK_TEXT);
         default:
           winston.debug(`User ${msg.user_name} in team ${msg.team_id} ran an other command`);
           return bot.replyPrivate(SlashCommandService.HELP_TEXT_OBJECT);
