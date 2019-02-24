@@ -2,23 +2,15 @@ import * as winston from 'winston';
 import Item from '../model/Item';
 import ItemService from './ItemService';
 import MessageService from './MessageService';
+import TeamService from './TeamService';
 
 export default class SlashCommandService {
-
-  private static HELP_TEXT_OBJECT = {
-    text: [
-      '*Since Help* - Here are the actions you can take with Since',
-      '',
-      '- List current events: `/since list`',
-      '- Create an event: `/since create <event name>`',
-      '- Send feedback: `/since feedback`'
-    ].join('\n')
-  };
 
   // tslint:disable-next-line max-line-length
   private static FEEDBACK_TEXT = 'Thank you for sending us feedback! Please send an email to `support@theaway.team` and include your Slack Workspace name.';
 
   private itemService = new ItemService();
+  private teamService = new TeamService();
   private messageService = new MessageService();
 
   public async process(msg, bot) {
@@ -40,9 +32,27 @@ export default class SlashCommandService {
         case 'feedback':
           winston.debug(`User ${msg.user_name} in team ${msg.team_id} ran a feedback command`);
           return bot.replyPrivate(SlashCommandService.FEEDBACK_TEXT);
+        case 'payment':
+          winston.debug(`User ${msg.user_name} in team ${msg.team_id} ran a payment command`);
+          // tslint:disable-next-line max-line-length
+          return bot.replyPrivate(`Please go <https://theaway.team/payment?workspace=${msg.team_id}&productName=since|here> to submit payment`);
         default:
+          const commands = [
+            '*Since Help* - Here are the actions you can take with Since',
+            '',
+            '- List current events: `/since list`',
+            '- Create an event: `/since create <event name>`',
+            '- Send feedback: `/since feedback`'
+          ];
+          const team = await this.teamService.getTeam(msg.team_id);
+          if (!team.paid) {
+            commands.push('- Submit one-time payment: `/since payment`');
+          }
+          const helpTextObject = {
+            text: commands.join('\n')
+          };
           winston.debug(`User ${msg.user_name} in team ${msg.team_id} ran an other command`);
-          return bot.replyPrivate(SlashCommandService.HELP_TEXT_OBJECT);
+          return bot.replyPrivate(helpTextObject);
       }
     } catch (e) {
       winston.error('Error processing the slash command', e);
