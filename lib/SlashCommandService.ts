@@ -8,7 +8,7 @@ export default class SlashCommandService {
 
   // tslint:disable-next-line max-line-length
   private static FEEDBACK_TEXT = 'Thank you for sending us feedback! Please send an email to `support@theaway.team` and include your Slack Workspace name.';
-  private static FREE_TIER_MAXIMUM = 5;
+  private static FREE_TIER_MAXIMUM = parseInt(process.env.FREE_TIER_MAXIMUM, 10);
   // tslint:disable-next-line max-line-length
   private static FREE_TIER_TEXT = `:stop: You have reached the free tier limit of ${SlashCommandService.FREE_TIER_MAXIMUM} events. Please use \`/since payment\` to upgrade.`;
 
@@ -42,7 +42,7 @@ export default class SlashCommandService {
         case 'payment':
           winston.debug(`User ${msg.user_name} in team ${msg.team_id} ran a payment command`);
           // tslint:disable-next-line max-line-length
-          return bot.replyPrivate(`Please go <https://theaway.team/payment?workspace=${msg.team_id}&productName=since|here> to submit payment`);
+          return bot.replyPrivate(`Please go <${process.env.PAYMENT_DOMAIN}/payment?workspace=${msg.team_id}&productName=since|here> to submit payment`);
         default:
           const commands = [
             '*Since Help* - Here are the actions you can take with Since',

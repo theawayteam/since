@@ -48,6 +48,8 @@ provider:
     CLIENT_SECRET: ${ssm:since.${opt:stage}.SLACK_CLIENT_SECRET}
     CLIENT_SCOPES: ${self:custom.slack_client_scopes}
     INSTALL_REDIRECT: ${self:custom.slack_install_redirect}
+    PAYMENT_DOMAIN: ${ssm:since.${opt:stage}.PAYMENT_DOMAIN}
+    FREE_TIER_MAXIMUM: ${ssm:since.${opt:stage}.FREE_TIER_MAXIMUM}
     VERIFICATION_TOKEN: ${ssm:since.${opt:stage}.VERIFICATION_TOKEN}
     ENABLE_LOGGING: ${self:custom.slack_enable_logging}
 
