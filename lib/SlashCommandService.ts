@@ -6,17 +6,13 @@ import MessageService from './MessageService';
 export default class SlashCommandService {
 
   private static HELP_TEXT_OBJECT = {
-    attachments: [{
-      text: [
-        'List current events',
-        '`/since list`',
-        'Create an event',
-        '`/since create <event name>`',
-        'Send feedback',
-        '`/since feedback`'
-      ].join('\n')
-    }],
-    text: 'Since Help'
+    text: [
+      '*Since Help* - Here are the actions you can take with Since',
+      '',
+      '- List current events: `/since list`',
+      '- Create an event: `/since create <event name>`',
+      '- Send feedback: `/since feedback`'
+    ].join('\n')
   };
 
   // tslint:disable-next-line max-line-length
