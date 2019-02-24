@@ -41,8 +41,9 @@ export default class SlashCommandService {
           return bot.replyPrivate(SlashCommandService.FEEDBACK_TEXT);
         case 'payment':
           winston.debug(`User ${msg.user_name} in team ${msg.team_id} ran a payment command`);
+          const currentTeam = await this.teamService.getTeam(msg.team_id);
           // tslint:disable-next-line max-line-length
-          return bot.replyPrivate(`Please go <${process.env.PAYMENT_DOMAIN}/payment?workspace=${msg.team_id}&productName=since|here> to submit payment`);
+          return bot.replyPrivate(`Please go <${process.env.PAYMENT_DOMAIN}/payment?workspace=${currentTeam.team_name}&productName=since|here> to submit payment`);
         default:
           const commands = [
             '*Since Help* - Here are the actions you can take with Since',
