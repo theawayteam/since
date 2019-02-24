@@ -8,6 +8,9 @@ export default class SlashCommandService {
 
   // tslint:disable-next-line max-line-length
   private static FEEDBACK_TEXT = 'Thank you for sending us feedback! Please send an email to `support@theaway.team` and include your Slack Workspace name.';
+  private static FREE_TIER_MAXIMUM = 5;
+  // tslint:disable-next-line max-line-length
+  private static FREE_TIER_TEXT = `:stop: You have reached the free tier limit of ${SlashCommandService.FREE_TIER_MAXIMUM} events. Please use \`/since payment\` to upgrade.`;
 
   private itemService = new ItemService();
   private teamService = new TeamService();
@@ -24,6 +27,10 @@ export default class SlashCommandService {
           return bot.replyPrivate(message);
         case 'create':
           winston.debug(`User ${msg.user_name} in team ${msg.team_id} ran a create command`);
+          const hasHitFreeTierLimit = await this.hasHitFreeTierLimit(msg.team_id);
+          if (hasHitFreeTierLimit) {
+            return bot.replyPrivate(SlashCommandService.FREE_TIER_TEXT);
+          }
           const name = parts.slice(1).join(' ');
           const item = new Item(msg.team_id, name, msg.user_name, new Date().getTime());
           this.itemService.save(item);
@@ -86,5 +93,17 @@ export default class SlashCommandService {
     } catch (e) {
       winston.error('Error processing a interactive action', e);
     }
+  }
+
+  private async hasHitFreeTierLimit(teamId: string) {
+    const team = await this.teamService.getTeam(teamId);
+    if (team.paid) {
+      return false;
+    }
+    const items = await this.itemService.list(teamId);
+    if (items.length >= SlashCommandService.FREE_TIER_MAXIMUM) {
+      return true;
+    }
+    return false;
   }
 }
