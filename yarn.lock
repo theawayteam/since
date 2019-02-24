@@ -286,6 +286,21 @@ asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
+aws-sdk@^2.177.0:
+  version "2.409.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.409.0.tgz#d017060ba9e005487c68dc34a592af74d916f295"
+  integrity sha512-QV6j9zBQq/Kz8BqVOrJ03ABjMKtErXdUT1YdYEljoLQZimpzt0ZdQwJAsoZIsxxriOJgrqeZsQUklv9AFQaldQ==
+  dependencies:
+    buffer "4.9.1"
+    events "1.1.1"
+    ieee754 "1.1.8"
+    jmespath "0.15.0"
+    querystring "0.2.0"
+    sax "1.2.1"
+    url "0.10.3"
+    uuid "3.3.2"
+    xml2js "0.4.19"
+
 aws-sdk@^2.202.0, aws-sdk@^2.7.13:
   version "2.202.0"
   resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.202.0.tgz#c1bd90c1dc0bfe835522fe81f29cf8bb71bf00cc"
@@ -3111,9 +3126,17 @@ serve-static@1.13.2:
     parseurl "~1.3.2"
     send "0.16.2"
 
-serverless-slack@theawayteam/serverless-slack#duplicate-interactive-messages:
+serverless-domain-manager@^2.6.13:
+  version "2.6.13"
+  resolved "https://registry.yarnpkg.com/serverless-domain-manager/-/serverless-domain-manager-2.6.13.tgz#64e398cbd26b113e096887eb063a43caf1ed12a1"
+  integrity sha512-oMV4OPbTo9IWzaRwvQl8H+sdXGCNraO+92g48RrS1AmbRQf9+w6gycNy3o+uE/LlAQnYrbuNSE1VD0zeKRh4uw==
+  dependencies:
+    aws-sdk "^2.177.0"
+    chalk "^2.0.1"
+
+serverless-slack@theawayteam/serverless-slack#created-times:
   version "1.0.26"
-  resolved "https://codeload.github.com/theawayteam/serverless-slack/tar.gz/a5e44260914b8620652f90b25792ce6db5a4a449"
+  resolved "https://codeload.github.com/theawayteam/serverless-slack/tar.gz/869d3990f24fa0dafd5c7ca32a434138cb8cfb6b"
   dependencies:
     aws-sdk "^2.7.13"
     axios "^0.15.3"
@@ -3732,6 +3755,11 @@ uuid@3.0.0:
 uuid@3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.1.0.tgz#3dd3d3e790abc24d7b0d3a034ffababe28ebbc04"
+
+uuid@3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
+  integrity sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==
 
 uuid@^2.0.2:
   version "2.0.3"
