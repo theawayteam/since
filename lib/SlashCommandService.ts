@@ -39,8 +39,8 @@ export default class SlashCommandService {
         case 'feedback':
           winston.debug(`User ${msg.user_name} in team ${msg.team_id} ran a feedback command`);
           return bot.replyPrivate(SlashCommandService.FEEDBACK_TEXT);
-        case 'payment':
-          winston.debug(`User ${msg.user_name} in team ${msg.team_id} ran a payment command`);
+        case 'upgrade':
+          winston.debug(`User ${msg.user_name} in team ${msg.team_id} ran an upgrade command`);
           const currentTeam = await this.teamService.getTeam(msg.team_id);
           // tslint:disable-next-line max-line-length
           return bot.replyPrivate(`Please go <${process.env.PAYMENT_DOMAIN}/payment?workspace=${currentTeam.team_name}&productName=since|here> to submit payment`);
@@ -54,7 +54,7 @@ export default class SlashCommandService {
           ];
           const team = await this.teamService.getTeam(msg.team_id);
           if (!team.paid) {
-            commands.push('- Submit one-time payment: `/since payment`');
+            commands.push('- Upgrade to unlimited timers: `/since upgrade`');
           }
           const helpTextObject = {
             text: commands.join('\n')
