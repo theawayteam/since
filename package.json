@@ -27,5 +27,8 @@
     "webpack": "^3.6.0",
     "winston": "^2.4.0"
   },
-  "author": "TheConnMan"
+  "author": "TheConnMan",
+  "dependencies": {
+    "serverless-domain-manager": "^2.6.13"
+  }
 }
