@@ -21,7 +21,7 @@ custom:
   slack_install_path: slack
 
   # The path to redirect to after an install
-  slack_install_redirect: https://slack.com
+  slack_install_redirect: https://theaway.team/since?installed=complete
   
   # Space delimited scopes
   slack_client_scopes: "commands"
