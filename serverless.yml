@@ -26,10 +26,15 @@ custom:
   # Space delimited scopes
   slack_client_scopes: "commands"
 
+  # URL mappings
+  domains:
+    dev: dev.since.theaway.team
+    prod: since.theaway.team
+
   customDomain:
-    domainName: since.theaway.team
+    domainName: ${self:custom.domains.${opt:stage}}
     basePath: api
-    stage: ${self:provider.stage}
+    stage: ${opt:stage}
     createRoute53Record: true
 
 provider:
