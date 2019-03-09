@@ -8,7 +8,7 @@ export default class ItemService {
 
   public async save(item: Item) {
     return this.client.put({
-      Item: item,
+      Item: item.encrypted(),
       TableName: process.env.ITEM_TABLE_NAME
     }).promise();
   }
@@ -21,7 +21,7 @@ export default class ItemService {
       },
       TableName: process.env.ITEM_TABLE_NAME
     }).promise();
-    return plainToClass(Item, response.Item);
+    return plainToClass(Item, response.Item).decrypted();
   }
 
   public async delete(id: string, teamId: string): Promise<void> {
@@ -43,7 +43,7 @@ export default class ItemService {
       TableName: process.env.ITEM_TABLE_NAME
     }).promise();
     return response.Items.map((item) => {
-      return plainToClass(Item, item);
+      return plainToClass(Item, item).decrypted();
     });
   }
 }
