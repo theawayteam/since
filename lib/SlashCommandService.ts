@@ -10,7 +10,7 @@ export default class SlashCommandService {
   private static FEEDBACK_TEXT = 'Thank you for sending us feedback! Please send an email to `support@theaway.team` and include your Slack Workspace name.';
   private static FREE_TIER_MAXIMUM = parseInt(process.env.FREE_TIER_MAXIMUM, 10);
   // tslint:disable-next-line max-line-length
-  private static FREE_TIER_TEXT = `:stop: You have reached the free tier limit of ${SlashCommandService.FREE_TIER_MAXIMUM} events. Please use \`/since payment\` to upgrade.`;
+  private static FREE_TIER_TEXT = `:stop: You have reached the free tier limit of ${SlashCommandService.FREE_TIER_MAXIMUM} events. Please use \`/since upgrade\` to upgrade.`;
 
   private itemService = new ItemService();
   private teamService = new TeamService();
