@@ -6,9 +6,9 @@ export default class ItemService {
 
   private client = new DynamoDB.DocumentClient();
 
-  public async save(user: Item) {
+  public async save(item: Item) {
     return this.client.put({
-      Item: user,
+      Item: item,
       TableName: process.env.ITEM_TABLE_NAME
     }).promise();
   }
