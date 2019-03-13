@@ -64,6 +64,7 @@ provider:
     FREE_TIER_MAXIMUM: ${ssm:since.${opt:stage}.FREE_TIER_MAXIMUM}
     VERIFICATION_TOKEN: ${ssm:since.${opt:stage}.VERIFICATION_TOKEN}
     ENABLE_LOGGING: ${self:custom.slack_enable_logging}
+    WEBHOOK: ${ssm:since.${opt:stage}.WEBHOOK
 
 functions:
   slack:
