@@ -13,10 +13,13 @@ export class NotificationService {
   }
 
   private send(text: string) {
-    const data = JSON.stringify({ text });
+    const data = JSON.stringify({
+      'text': text
+    });
     
     const options = {
-      hostname: this.webhook,
+      hostname: 'hooks.slack.com',
+      path: this.webhook,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -32,6 +35,7 @@ export class NotificationService {
       winston.error(`Error sending webhook ${error}`);
     })
     
+    req.write(data);
     req.end();
   }
 }
