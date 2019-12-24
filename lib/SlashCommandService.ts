@@ -20,11 +20,12 @@ export default class SlashCommandService {
     try {
       const parts = msg.text.trim().split(' ');
       switch (parts[0]) {
+        case 'public':
         case 'list':
           winston.debug(`User ${msg.user_name} in team ${msg.team_id} ran a list command`);
           const items = await this.itemService.list(msg.team_id);
           const message = this.messageService.generateListMessage(items);
-          return bot.replyPrivate(message);
+          return parts[0] === 'public' ? bot.reply(message) : bot.replyPrivate(message);
         case 'create':
           winston.debug(`User ${msg.user_name} in team ${msg.team_id} ran a create command`);
           const hasHitFreeTierLimit = await this.hasHitFreeTierLimit(msg.team_id);
@@ -48,7 +49,8 @@ export default class SlashCommandService {
           const commands = [
             '*Since Help* - Here are the actions you can take with Since',
             '',
-            '- List current events: `/since list`',
+            '- List current events privately: `/since list`',
+            '- List current events publicly: `/since public`',
             '- Create an event: `/since create <event name>`',
             '- Send feedback: `/since feedback`'
           ];
