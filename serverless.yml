@@ -24,7 +24,7 @@ custom:
   slack_install_redirect: https://theaway.team/since?installed=complete
   
   # Space delimited scopes
-  slack_client_scopes: "commands"
+  slack_client_scopes: "chat:write,commands"
 
   # URL mappings
   domains:
