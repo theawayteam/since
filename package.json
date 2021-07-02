@@ -4,7 +4,7 @@
   "description": "Slack Slash Command tracking how long it's been since an event",
   "main": "handler.js",
   "scripts": {
-    "lint": "tslint -p tslint.json",
+    "lint": "tslint -p tsconfig.json",
     "deploy": "sls deploy"
   },
   "devDependencies": {
