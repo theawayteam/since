@@ -16,7 +16,7 @@
     "aws-sdk": "^2.938.0",
     "class-transformer": "^0.4.0",
     "crypto": "^1.0.1",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "reflect-metadata": "^0.1.13",
     "serverless": "^2.50.0",
     "serverless-slack": "^1.0.27",
