@@ -1,4 +1,4 @@
-const https = require('https');
+import https = require('https');
 import * as winston from 'winston';
 
 export class NotificationService {
@@ -16,7 +16,7 @@ export class NotificationService {
     const data = JSON.stringify({
       'text': text
     });
-    
+
     const options = {
       hostname: 'hooks.slack.com',
       path: this.webhook,
@@ -26,15 +26,15 @@ export class NotificationService {
         'Content-Length': data.length
       }
     }
-    
+
     const req = https.request(options, (res) => {
       winston.debug(`statusCode for sending webhook: ${res.statusCode}`);
     });
-    
+
     req.on('error', (error) => {
       winston.error(`Error sending webhook ${error}`);
     })
-    
+
     req.write(data);
     req.end();
   }
