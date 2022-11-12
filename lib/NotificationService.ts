@@ -8,8 +8,10 @@ export class NotificationService {
     this.webhook = process.env.WEBHOOK;
   }
 
-  newCustomer() {
-    this.send('New customer has installed Since!');
+  newCustomer(payload) {
+    const customer = JSON.parse(payload);
+    const installTeam = customer.team.name 
+    this.send(`New customer ${installTeam} has installed Since!`);
   }
 
   private send(text: string) {
