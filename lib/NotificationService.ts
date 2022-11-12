@@ -10,8 +10,8 @@ export class NotificationService {
 
   newCustomer(payload) {
     const customer = JSON.parse(payload);
-    const install_team = customer.team.name 
-    this.send(`New customer ${install_team} has installed Since!`);
+    const installTeam = customer.team.name 
+    this.send(`New customer ${installTeam} has installed Since!`);
   }
 
   private send(text: string) {
