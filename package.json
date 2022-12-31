@@ -18,7 +18,7 @@
     "crypto": "^1.0.1",
     "moment": "^2.29.4",
     "reflect-metadata": "^0.1.13",
-    "serverless": "^2.50.0",
+    "serverless": "^3.26.0",
     "serverless-slack": "theawayteam/serverless-slack",
     "serverless-webpack": "^4.0.0",
     "ts-loader": "^2.3.7",
