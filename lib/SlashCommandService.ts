@@ -76,13 +76,14 @@ export default class SlashCommandService {
       const itemId = msg.callback_id;
       const item = await this.itemService.get(itemId, team);
       const lastTime = item.timestamp;
+      const lastUser = item.user;
       switch (action.value) {
         case 'reset':
           winston.debug(`User ${msg.user.name} in team ${msg.team.id} reset an event`);
           item.timestamp = new Date().getTime();
           item.user = msg.user.id;
           await this.itemService.save(item);
-          await bot.say(this.messageService.generateResetMessage(item, lastTime));
+          await bot.say(this.messageService.generateResetMessage(item, lastTime, lastUser));
           break;
         case 'delete':
           winston.debug(`User ${msg.user.name} in team ${msg.team.id} deleted an event`);
