@@ -1,6 +1,6 @@
 {
   "name": "since",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Slack Slash Command tracking how long it's been since an event",
   "main": "handler.js",
   "scripts": {
