@@ -27,5 +27,5 @@ slack.on('interactive_message', async (msg, bot) => {
 });
 
 slack.on('install_success', (payload) => {
-  notificationService.newCustomer();
+  notificationService.newCustomer(payload);
 });

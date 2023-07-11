@@ -25,10 +25,10 @@ export default class MessageService {
     };
   }
 
-  public generateResetMessage(item: Item, lastTime: number): any {
+  public generateResetMessage(item: Item, lastTime: number, lastUser: string): any {
     const humanTime = moment.duration(item.timestamp - lastTime, 'millisecond').humanize();
     return {
-      text: `<@${item.user}> reset ${item.name}! The last occurrence was ${humanTime} ago by <@${item.user}>`
+      text: `<@${item.user}> reset ${item.name}! The last occurrence was ${humanTime} ago by <@${lastUser}>`
     };
   }
 
