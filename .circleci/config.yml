@@ -33,7 +33,7 @@ jobs:
       - run:
           name: Deploy
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            if [ "${CIRCLE_BRANCH}" == "main" ]; then
               yarn run deploy -s prod
             elif [ "${CIRCLE_BRANCH}" == "dev" ]; then
               yarn run deploy -s dev
@@ -48,5 +48,5 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - main
                 - dev
