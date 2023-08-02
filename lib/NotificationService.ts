@@ -10,7 +10,15 @@ export class NotificationService {
 
   newCustomer(payload) {
     const customer = JSON.parse(payload);
-    const installTeam = customer.team.name 
+    var installTeam = "Unknown";
+    if (customer.hasOwnProperty("team_name")) {
+      installTeam = customer.team_name;
+    }
+    else if (customer.hasOwnProperty("team")) {
+      installTeam = customer.team.name;
+    }
+
+    
     this.send(`New customer ${installTeam} has installed Since!`);
   }
 
