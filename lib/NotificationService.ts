@@ -22,6 +22,20 @@ export class NotificationService {
     this.send(`New customer ${installTeam} has installed Since!`);
   }
 
+  newCustomerError(payload) {
+    const customer = JSON.parse(payload);
+    var installTeam = "Unknown";
+    if (customer.hasOwnProperty("team_name")) {
+      installTeam = customer.team_name;
+    }
+    else if (customer.hasOwnProperty("team")) {
+      installTeam = customer.team.name;
+    }
+
+    winston.debug(`install_error payload ${payload}`);
+    this.send(`New customer ${installTeam} had an error installing Since!`);
+  }
+
   private send(text: string) {
     const data = JSON.stringify({
       'text': text
