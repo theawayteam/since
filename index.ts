@@ -29,3 +29,7 @@ slack.on('interactive_message', async (msg, bot) => {
 slack.on('install_success', (payload) => {
   notificationService.newCustomer(payload);
 });
+
+slack.on('install_error', (payload) => {
+  notificationService.newCustomerError(payload);
+});
