@@ -30,6 +30,7 @@ slack.on('install_success', (payload) => {
   notificationService.newCustomer(payload);
 });
 
-slack.on('install_error', (payload) => {
-  notificationService.newCustomerError(payload);
+slack.on('install_error', (error,payload) => {
+  winston.debug(`install_error '${error}' payload was '${JSON.stringify(payload)}'`);
+  //notificationService.newCustomerError(error,payload);
 });
