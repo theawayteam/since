@@ -22,9 +22,9 @@ export class NotificationService {
     this.send(`New customer ${installTeam} has installed Since!`);
   }
 
-  newCustomerError(payload) {
-    winston.debug(`install_error payload ${payload}`);
-    this.send(`New customer had an error ${payload} installing Since!`);
+  newCustomerError(error,payload) {
+    winston.debug(`install_error '${error}' payload was '${payload}'`);
+    this.send(`New customer had an error ${JSON.stringify(payload)} installing Since!`);
   }
 
   private send(text: string) {
